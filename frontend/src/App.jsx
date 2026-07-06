@@ -32,8 +32,10 @@ function App() {
     setIsLoading(true);
 
     try {
-      // In a real app, this URL would be configured via env vars
-      const response = await fetch('http://localhost:3001/api/chat', {
+      // Use relative path in production (Vercel) and localhost in development
+      const apiUrl = import.meta.env.PROD ? '/api/chat' : 'http://localhost:3001/api/chat';
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
